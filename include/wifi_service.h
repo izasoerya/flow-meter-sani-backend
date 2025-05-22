@@ -20,7 +20,7 @@ public:
     WiFiService() {};
     ~WiFiService() {};
 
-    void connect(WiFiClientSecure &client)
+    void connect()
     {
         Serial.print("Connecting to WiFi: ");
         Serial.println(ssid);
