@@ -8,7 +8,7 @@ class PayloadData
 private:
     uint32_t logId;
     uint32_t value;
-    String timeStamp;
+    uint32_t kalmanValue;
 
 public:
     PayloadData() {};
@@ -22,9 +22,9 @@ public:
     {
         this->value = value;
     }
-    void setTimeStamp(const String &timeStamp)
+    void setValueKalman(const uint32_t &value)
     {
-        this->timeStamp = timeStamp;
+        this->kalmanValue = value;
     }
 
     JsonDocument toJson()
@@ -38,8 +38,8 @@ public:
         JsonObject valueObj = fields.createNestedObject("value");
         valueObj["integerValue"] = String(value);
 
-        JsonObject timestampObj = fields.createNestedObject("timestamp");
-        timestampObj["timestampValue"] = timeStamp;
+        JsonObject valueKalmanObj = fields.createNestedObject("kalmanValue");
+        valueKalmanObj["integerValue"] = String(kalmanValue);
 
         return doc;
     }

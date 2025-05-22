@@ -1,3 +1,4 @@
+// flowmeter.h
 #pragma once
 
 #include <Arduino.h>
@@ -5,15 +6,18 @@
 class FlowMeter
 {
 private:
-    uint32_t pulseCount = 0;
+    volatile uint32_t pulseCount = 0;
+    const float volumePerPulse = 7.407f; // YF-DN50: Each pulse ≈ 7.407 mL
 
 public:
-    FlowMeter() {};
-    ~FlowMeter() {};
-
     void incrementPulseCount()
     {
         pulseCount++;
+    }
+
+    void resetPulseCount()
+    {
+        pulseCount = 0;
     }
 
     uint32_t getPulseCount()
@@ -21,8 +25,8 @@ public:
         return pulseCount;
     }
 
-    void resetPulseCount()
+    float getVolumeMilliLiters()
     {
-        pulseCount = 0;
+        return pulseCount * volumePerPulse;
     }
 };
