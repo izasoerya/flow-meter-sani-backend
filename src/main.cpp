@@ -27,9 +27,9 @@ PayloadData payloadData;
 
 // MQTT setup
 WiFiClient mqttNetClient;
-PubSubClient mqttClient(mqttNetClient);
-const char *mqtt_broker = "103.150.117.46";
-const uint16_t mqtt_port = 1883;
+PubSubClient mqttClient(wClient);
+const char *mqtt_broker = "m3f1b41a.ala.us-east-1.emqxsl.com";
+const uint16_t mqtt_port = 8883;
 const char *mqtt_user = "arr1";
 const char *mqtt_pass = "arr1";
 const char *mqtt_client_id = "Flowmeter-Sani";
@@ -43,6 +43,7 @@ void mqttCallback(char *topic, byte *payload, unsigned int length)
 	{
 		data += (char)payload[i];
 	}
+	Serial.println(data);
 	if (data == "START")
 		lastPayloadData = "START";
 	else if (data == "STOP")
@@ -57,7 +58,7 @@ void mqttReconnect()
 		if (mqttClient.connect(mqtt_client_id, mqtt_user, mqtt_pass))
 		{
 			Serial.println("connected");
-			mqttClient.subscribe("your/topic");
+			mqttClient.subscribe("Flowmeter-Sani/Flowmeter-1");
 		}
 		else
 		{
