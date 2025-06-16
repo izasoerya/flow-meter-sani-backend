@@ -13,7 +13,7 @@
 
 void taskReading();
 
-Task reading(5000, TASK_FOREVER, &taskReading);
+Task reading(60000, TASK_FOREVER, &taskReading);
 
 KalmanFilter kalman;
 PayloadDeviceName payloadDeviceName("Flowmeter-1");
@@ -131,7 +131,7 @@ void taskReading()
 		uint32_t currentId = wifiService.getDocument(http, httpSecureClient); // gunakan klien terpisah
 
 		payloadData.setLogId(currentId + 1);
-		payloadData.setValue(flowRateLPM * 3);
+		payloadData.setValue(flowRateLPM * 3 * 0.784);
 		payloadData.setValueKalman(filteredFlow * 3);
 
 		JsonDocument docData = payloadData.toJson();
