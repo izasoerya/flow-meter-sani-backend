@@ -13,7 +13,7 @@
 
 void taskReading();
 
-Task reading(60000, TASK_FOREVER, &taskReading);
+Task reading(30000, TASK_FOREVER, &taskReading);
 
 KalmanFilter kalman;
 PayloadDeviceName payloadDeviceName("Flowmeter-1");
@@ -132,7 +132,7 @@ void taskReading()
 
 		payloadData.setLogId(currentId + 1);
 		payloadData.setValue(flowRateLPM * 3 * 0.784);
-		payloadData.setValueKalman(filteredFlow * 3);
+		payloadData.setValueKalman(filteredFlow * 3 * 0.784);
 
 		JsonDocument docData = payloadData.toJson();
 		JsonDocument docName = payloadDeviceName.toJson();

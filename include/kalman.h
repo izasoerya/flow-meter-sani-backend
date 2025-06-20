@@ -11,7 +11,7 @@ private:
     bool initialized = false;
 
 public:
-    KalmanFilter(float processNoise = 0.01, float measurementNoise = 1.0)
+    KalmanFilter(float processNoise = 0.01, float measurementNoise = 2.08)
         : Q(processNoise), R(measurementNoise), P(1.0), X(0.0) {}
 
     void reset()
