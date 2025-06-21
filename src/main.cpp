@@ -131,8 +131,8 @@ void taskReading()
 		uint32_t currentId = wifiService.getDocument(http, httpSecureClient); // gunakan klien terpisah
 
 		payloadData.setLogId(currentId + 1);
-		payloadData.setValue(flowRateLPM * 3 * 0.784);
-		payloadData.setValueKalman(filteredFlow * 3 * 0.784);
+		payloadData.setValue(flowRateLPM * 3 * 0.782);
+		payloadData.setValueKalman(filteredFlow * 3 * 0.782);
 
 		JsonDocument docData = payloadData.toJson();
 		JsonDocument docName = payloadDeviceName.toJson();
