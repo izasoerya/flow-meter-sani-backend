@@ -102,6 +102,7 @@ void setup()
 	reading.enable();
 
 	attachInterrupt(digitalPinToInterrupt(32), ISR_function, RISING);
+	delay(2000);
 }
 
 void loop()
@@ -126,6 +127,11 @@ void taskReading()
 		float flowRateLPM = flowMeter.getFlowRateLPM(durationMs);
 		float filteredFlow = kalman.filter(flowRateLPM);
 
+		if (filteredFlow > 200 && filteredFlow < 30)
+		{
+			kalman.reset();
+		}
+
 		// Gunakan httpSecureClient saat melakukan HTTP requeste
 		HTTPClient http;
 		uint32_t currentId = wifiService.getDocument(http, httpSecureClient); // gunakan klien terpisah
@@ -140,8 +146,8 @@ void taskReading()
 		int responseCreate = wifiService.createDocument(http, httpSecureClient, docData);
 		int responseUpdate = wifiService.updateDocument(http, httpSecureClient, docName);
 
-		Serial.print("Flow rate (L/min): ");
-		Serial.println(flowRateLPM);
+		// Serial.print("Flow rate (L/min): ");
+		// Serial.println(flowRateLPM);
 
 		flowMeter.resetPulseCount();
 		flowStartTime = now;
