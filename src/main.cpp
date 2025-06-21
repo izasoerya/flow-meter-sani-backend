@@ -13,7 +13,7 @@
 
 void taskReading();
 
-Task reading(10000, TASK_FOREVER, &taskReading);
+Task reading(15000, TASK_FOREVER, &taskReading);
 
 KalmanFilter kalman;
 PayloadDeviceName payloadDeviceName("Flowmeter-1");
