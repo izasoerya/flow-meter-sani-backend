@@ -7,8 +7,8 @@ class PayloadData
 {
 private:
     uint32_t logId;
-    float value;
-    float kalmanValue;
+    uint32_t value;
+    uint32_t kalmanValue;
 
 public:
     PayloadData() {};
@@ -18,11 +18,11 @@ public:
     {
         this->logId = logId;
     }
-    void setValue(const float &value)
+    void setValue(const uint32_t &value)
     {
         this->value = value;
     }
-    void setValueKalman(const float &value)
+    void setValueKalman(const uint32_t &value)
     {
         this->kalmanValue = value;
     }

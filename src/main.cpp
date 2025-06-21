@@ -13,7 +13,7 @@
 
 void taskReading();
 
-Task reading(30000, TASK_FOREVER, &taskReading);
+Task reading(3000, TASK_FOREVER, &taskReading);
 
 KalmanFilter kalman;
 PayloadDeviceName payloadDeviceName("Flowmeter-1");
@@ -126,7 +126,7 @@ void taskReading()
 		float flowRateLPM = flowMeter.getFlowRateLPM(durationMs);
 		float filteredFlow = kalman.filter(flowRateLPM);
 
-		// Gunakan httpSecureClient saat melakukan HTTP request
+		// Gunakan httpSecureClient saat melakukan HTTP requeste
 		HTTPClient http;
 		uint32_t currentId = wifiService.getDocument(http, httpSecureClient); // gunakan klien terpisah
 
