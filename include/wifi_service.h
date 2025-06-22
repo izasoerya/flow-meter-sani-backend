@@ -98,8 +98,8 @@ public:
             Serial.printf("HTTP Error Code: %d\n", httpResponseCode);
             Serial.println(http.getString());
         }
-
         http.end();
+        Serial.println(maxLogId);
         return maxLogId;
     }
 

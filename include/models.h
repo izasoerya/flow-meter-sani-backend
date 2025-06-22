@@ -14,7 +14,7 @@ public:
     PayloadData() {};
     ~PayloadData() {};
 
-    void setLogId(const float &logId)
+    void setLogId(const uint32_t &logId)
     {
         this->logId = logId;
     }
@@ -33,7 +33,7 @@ public:
         JsonObject fields = doc.createNestedObject("fields");
 
         JsonObject logIdObj = fields.createNestedObject("logId");
-        logIdObj["doubleValue"] = String(logId); // Firestore expects stringified integers
+        logIdObj["integerValue"] = String(logId); // Firestore expects stringified integers
 
         JsonObject valueObj = fields.createNestedObject("value");
         valueObj["doubleValue"] = String(value);

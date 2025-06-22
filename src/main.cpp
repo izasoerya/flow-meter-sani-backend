@@ -37,6 +37,7 @@ bool useKalmanFilter = true;
 
 bool isActive = false;
 unsigned long flowStartTime = 0;
+uint32_t currentId = 0;
 
 void mqttCallback(char *topic, byte *payload, unsigned int length)
 {
@@ -102,6 +103,10 @@ void setup()
 	reading.enable();
 
 	attachInterrupt(digitalPinToInterrupt(32), ISR_function, RISING);
+
+	HTTPClient http;
+	currentId = wifiService.getDocument(http, httpSecureClient); // gunakan klien terpisah
+
 	delay(2000);
 }
 
@@ -132,17 +137,15 @@ void taskReading()
 			kalman.reset();
 		}
 
-		// Gunakan httpSecureClient saat melakukan HTTP requeste
-		HTTPClient http;
-		uint32_t currentId = wifiService.getDocument(http, httpSecureClient); // gunakan klien terpisah
-
-		payloadData.setLogId(currentId + 1);
+		currentId++;
+		payloadData.setLogId(currentId);
 		payloadData.setValue(flowRateLPM * 3 * 0.782 * 1.14);
 		payloadData.setValueKalman(filteredFlow * 3 * 0.782 * 1.14);
 
 		JsonDocument docData = payloadData.toJson();
 		JsonDocument docName = payloadDeviceName.toJson();
 
+		HTTPClient http;
 		int responseCreate = wifiService.createDocument(http, httpSecureClient, docData);
 		int responseUpdate = wifiService.updateDocument(http, httpSecureClient, docName);
 
