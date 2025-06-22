@@ -7,22 +7,22 @@ class PayloadData
 {
 private:
     uint32_t logId;
-    uint32_t value;
-    uint32_t kalmanValue;
+    float value;
+    float kalmanValue;
 
 public:
     PayloadData() {};
     ~PayloadData() {};
 
-    void setLogId(const uint32_t &logId)
+    void setLogId(const float &logId)
     {
         this->logId = logId;
     }
-    void setValue(const uint32_t &value)
+    void setValue(const float &value)
     {
         this->value = value;
     }
-    void setValueKalman(const uint32_t &value)
+    void setValueKalman(const float &value)
     {
         this->kalmanValue = value;
     }
@@ -33,13 +33,13 @@ public:
         JsonObject fields = doc.createNestedObject("fields");
 
         JsonObject logIdObj = fields.createNestedObject("logId");
-        logIdObj["integerValue"] = String(logId); // Firestore expects stringified integers
+        logIdObj["doubleValue"] = String(logId); // Firestore expects stringified integers
 
         JsonObject valueObj = fields.createNestedObject("value");
-        valueObj["integerValue"] = String(value);
+        valueObj["doubleValue"] = String(value);
 
         JsonObject valueKalmanObj = fields.createNestedObject("kalmanValue");
-        valueKalmanObj["integerValue"] = String(kalmanValue);
+        valueKalmanObj["doubleValue"] = String(kalmanValue);
 
         return doc;
     }
