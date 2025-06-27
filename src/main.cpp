@@ -144,8 +144,8 @@ void TaskFlowmeter(void *parameter)
 
 			PayloadData payloadData;
 			payloadData.setLogId(currentId);
-			payloadData.setValue(flowRateLPM * 3 * 0.782 * 1.14);
-			payloadData.setValueKalman(filteredFlow * 3 * 0.782 * 1.14);
+			payloadData.setValue(flowRateLPM * 3 * 0.781);
+			payloadData.setValueKalman(filteredFlow * 3 * 0.781);
 
 			// Send to Core 1 via queue
 			if (xQueueSend(flowQueue, &payloadData, 0) != pdPASS)
