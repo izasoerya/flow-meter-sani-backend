@@ -135,7 +135,7 @@ void TaskFlowmeter(void *parameter)
 			float flowRateLPM = flowMeter.getFlowRateLPM(durationMs);
 			float filteredFlow = kalman.filter(flowRateLPM);
 
-			if (filteredFlow > 200 || filteredFlow < 30)
+			if (filteredFlow > (200 * 3 * 0.781 * 0.941) || filteredFlow < (30 * 3 * 0.781 * 0.941))
 			{
 				kalman.reset();
 			}
